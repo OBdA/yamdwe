@@ -28,6 +28,8 @@ def clean_id(name, preserve_case=False):
         result = result.lower()
     while "__" in result:
         result = result.replace("__", "_") # this is a hack, unsure why regex doesn't catch it
+    # strip all '_' at string edges
+    result = result.lstrip('_').rstrip('_')
     return result
 
 def clean_user(name):
