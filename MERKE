@@ -1,0 +1,3 @@
+cd /var/lib/dokuwiki
+/usr/share/dokuwiki/bin/indexer.php -c \
+| sed -rn '/\.\.\./ {s/\.\.\..*//; p}'
