@@ -22,7 +22,7 @@ tmp=$(mktemp)
 while read page; do
 	$DWPAGE checkout "$page" "$tmp"
 	add_migration_tag "$tmp"
-	$DWPAGE commit "$tmp" "$page"
+	$DWPAGE commit -t -m "add migration tag" "$tmp" "$page"
 done
 
 #EOF
