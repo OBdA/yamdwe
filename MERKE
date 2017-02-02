@@ -1,3 +1,4 @@
 cd /var/lib/dokuwiki
 /usr/share/dokuwiki/bin/indexer.php -c \
-| sed -rn '/\.\.\./ {s/\.\.\..*//; p}'
+| sed -rn '/\.\.\./ {s/\.\.\..*//; p}' \
+| sh ~olf/dev/Mirror/yamdwe/add-migrate-tag.sh
