@@ -14,6 +14,7 @@ add_migration_tag() {
 	if grep -E -q '^{{tag>' "$file"; then
 		sed -r -i "s/^\{\{tag>/{{tag>$MIGRATION_TAG /" "$file"
 	else
+		echo "" >> "$file"
 		echo "{{tag>$MIGRATION_TAG}}" >> "$file"
 	fi
 }
