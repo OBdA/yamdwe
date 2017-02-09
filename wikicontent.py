@@ -65,7 +65,12 @@ def convert_pagecontent(title, content):
     context = {}
     context["list_stack"] = []
     context["nowiki_plaintext"] = nowiki_plaintext # hacky way of attaching to child nodes
+    context["categories"] = []
     result = convert(root, context, False)
+
+    # handle categorys once for each page (using tag plugin)
+    if len(context["categories"]):
+        result = result + "\n{{tag>%s}}\n" % " ".join(context["categories"])
 
     # mwlib doesn't parse NOTOC, so check for it manually
     if re.match(r"^\s*__NOTOC__\s*$", content, re.MULTILINE):
@@ -182,6 +187,9 @@ def convert(link, context, trailing_newline):
 @visitor.when(CategoryLink)
 def convert(link, context, trailing_newline):
     # Category functionality can be implemented with plugin:tag, but not used here
+    pagename = convert_internal_link(link.target)
+    category = pagename.split(':', 1)[1]
+    context["categories"].append(category)
     return ""
 
 @visitor.when(NamespaceLink)
